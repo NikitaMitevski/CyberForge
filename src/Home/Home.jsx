@@ -4,9 +4,10 @@ import './Home.css';
 const Home = () => {
   return (
     <div className="home-container">
-      <h1>Welcome to CyberForge</h1>
+      <h1>Секој клик е нова авантура!</h1>
+      <h1>Зачекори безбедно во дигиталниот свет.</h1>
       <div className="home-content">
-        <p>Your trusted partner in cybersecurity solutions</p>
+        <p></p>
       </div>
     </div>
   );

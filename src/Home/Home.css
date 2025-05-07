@@ -1,0 +1,24 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Changed from center to flex-start */
+    padding-top: 150px; /* Added padding-top to position content below navbar */
+    padding-bottom: 20px;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.home-container h1 {
+    font-size: 2.2rem;
+    margin-top: 15px;
+    margin-bottom: 0.5rem;
+}
+
+/* Add any additional hero section styles below */
+.hero-section {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 2rem;
+    margin-top: 0.5rem;
+}

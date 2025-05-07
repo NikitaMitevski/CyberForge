@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import Navbar from './Navbar/Navbar';
 import Home from './Home/Home';
@@ -7,6 +7,7 @@ import About from './About/About';
 import Services from './Services/Services';
 import Contact from './Contact/Contact';
 import AboutUs from './AboutUs/AboutUs';
+import LinkForm from './LinkForm/LinkForm';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/aboutus" element={<AboutUs />} />
           {/* Add more routes as needed */}
         </Routes>
+        <LinkForm />
       </div>
     </Router>
   );

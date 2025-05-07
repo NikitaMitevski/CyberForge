@@ -10,11 +10,15 @@ function Navbar() {
             <img src={logo} alt='CyberForge Logo' className='cyber-logo'/>
         </div>
         <ul className="navbar-links">
-            <li><Link to="/">Дома</Link></li>
-            <li><Link to="/about">Што е CyberForge?</Link></li>
-            <li><Link to="/services">Зошто безбедност?</Link></li>
-            <li><Link to="/contact">Тестирај</Link></li>
-            <li><Link to="/aboutus">За нас</Link></li>  {/* Changed from /contact to /aboutus */}
+            <div className="nav-group-left">
+                <li><Link to="/">Дома</Link></li>
+                <li><Link to="/about">Што е CyberForge?</Link></li>
+                <li><Link to="/services">Зошто безбедност?</Link></li>
+            </div>
+            <div className="nav-group-right">
+                <li><Link to="/contact" className="test-btn">Тестирај</Link></li>
+                <li><Link to="/aboutus">За нас</Link></li>
+            </div>
         </ul>
         </nav>
     );

@@ -1,0 +1,91 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 2rem;
+    background: transparent;
+    min-height: 56px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navbar-logo {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.cyber-logo {
+    height: 100px;
+    width: auto;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2.5rem;
+    width: 100%;
+}
+
+/* New styles for nav grouping */
+.navbar-links {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10%;
+}
+
+.nav-group-left {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.nav-group-right {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.navbar-links li {
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+    padding: 0.25rem 0.5rem;
+}
+
+.navbar-links a:hover {
+    color: #64d9cb;
+}
+
+.navbar-links .test-btn {
+    background: #64d9cb;
+    color: #fff !important;
+    border: none;
+    border-radius: 999px;
+    padding: 0.5rem 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-right: 1.5rem;
+    transition: background 0.2s;
+    cursor: pointer;
+    box-shadow: 0 2px 8px 0 rgba(100,217,203,0.08);
+    display: inline-block;
+}
+
+.navbar-links .test-btn:hover {
+    background: #4cc9b0;
+}
