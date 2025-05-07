@@ -4,7 +4,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #000000;
+  background-color: #010A11;
   position: relative;
 }
 
@@ -15,7 +15,7 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("../assets/Vector.jpg");
+  background-image: url("./assets/Vector.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

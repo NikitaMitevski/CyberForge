@@ -1,37 +1,40 @@
 .linkform-bg {
-  min-height: 100vh;
-  width: 100vw;
-  background-color: #0a1626;
+  width: 100%;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
+  padding: 0;
+  margin-top: 20px;
+  box-sizing: border-box;
 }
 
-.linkform-bg::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("../assets/Vector.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.8;
-  z-index: 0;
+.link-form-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  position: relative; /* Add this */
+  z-index: 1; /* Add this to appear above the background */
 }
 
-.linkform-container {
-  position: relative;
-  z-index: 1;
-  background: rgba(10, 22, 38, 0.85);
-  padding: 2rem 2.5rem;
-  border-radius: 18px;
-  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
-  color: #fff;
-  min-width: 320px;
-  max-width: 400px;
-  text-align: center;
+.link-form-input {
+    border-radius: 24px;
+    border: none;
+    padding: 16px;
+    width: 400px;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+}
+
+.link-form-button {
+    border-radius: 24px;
+    background: #4de1c1;
+    color: #222;
+    border: none;
+    padding: 12px 32px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
 }

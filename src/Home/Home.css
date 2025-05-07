@@ -4,7 +4,8 @@
     align-items: center;
     justify-content: flex-start; /* Changed from center to flex-start */
     padding-top: 150px; /* Added padding-top to position content below navbar */
-    padding-bottom: 20px;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    
     min-height: 100vh;
     width: 100%;
 }
@@ -12,7 +13,7 @@
 .home-container h1 {
     font-size: 2.2rem;
     margin-top: 15px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
 }
 
 /* Add any additional hero section styles below */
@@ -20,5 +21,6 @@
     width: 100%;
     max-width: 1200px;
     padding: 0 2rem;
-    margin-top: 0.5rem;
+    margin-top: 0;
+    margin-bottom: 100px;
 }
