@@ -58,13 +58,34 @@ const LinkForm = () => {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || 'Server error');
+        // Show a specific message if the backend says the domain does not exist or is unreachable
+        let errorMsg = "Се случи грешка: ";
+        if (data.error === 'Domain does not exist' || data.error === 'Website is not reachable') {
+          errorMsg = "Внесениот линк не постои или не е достапен.";
+        } else if (data.error) {
+          errorMsg += data.error;
+        }
+        if (data.suspicious) {
+          errorMsg += " (ВНИМАНИЕ: Линкот изгледа сомнително!)";
+        }
+        throw new Error(errorMsg);
       }
 
-      setResult(data.safe ? "Вашиот линк е безбеден!" : "Вашиот линк е опасен, бидете внимателни!");
+      let message = data.safe
+        ? "Вашиот линк е безбеден!"
+        : "Вашиот линк е опасен, бидете внимателни!";
+
+      if (data.urlhaus) {
+        message += " (Овој линк е пријавен како малициозен на URLhaus!)";
+      }
+      if (data.suspicious) {
+        message += " (ВНИМАНИЕ: Линкот изгледа сомнително!)";
+      }
+
+      setResult(message);
     } catch (error) {
       console.error('Error:', error);
-      setResult(`Се случи грешка: ${error.message}`);
+      setResult(error.message);
     } finally {
       setIsLoading(false);
     }
