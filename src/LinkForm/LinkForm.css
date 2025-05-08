@@ -38,3 +38,16 @@
     font-size: 16px;
     cursor: pointer;
 }
+
+.link-form-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.result-message {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
