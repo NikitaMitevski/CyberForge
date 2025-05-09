@@ -18,7 +18,7 @@ function Navbar() {
             <div className="nav-group-right">
                 <Link to="/" className="test-btn-link">
                     <button className="home-button">
-                        <span>Home</span>
+                        <span>Дома</span>
                         <i></i>
                     </button>
                 </Link>

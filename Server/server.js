@@ -60,7 +60,7 @@ app.post('/api/check-link', async (req, res) => {
     const suspicious = isSuspicious(hostname, pathname);
 
     // Trusted TLDs
-    const trustedTLDs = /\.(gov|edu|mk)$/i;
+    const trustedTLDs = /\.(gov|edu|)$/i;
 
     // DNS lookup to check if domain exists (skip for trusted TLDs)
     if (!trustedTLDs.test(hostname)) {
