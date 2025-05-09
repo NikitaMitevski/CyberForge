@@ -11,7 +11,7 @@ function Navbar() {
         </div>
         <ul className="navbar-links">
             <div className="nav-group-left">
-                <li><Link to="/">Кликни безбедно</Link></li>
+                <li><Link to="/clicksafe">Кликни безбедно</Link></li>
                 <li><Link to="/about">Што е CyberForge?</Link></li>
                 <li><Link to="/services">Зошто безбедност?</Link></li>
             </div>

@@ -1,7 +1,19 @@
+body, html {
+    overflow-x: hidden;
+}
+
 .globe-section-container {
   width: 100vw;
-  height: 600px;
-  margin: 0 auto;
+  height: 100vh;
   background: transparent;
   pointer-events: auto;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
 }

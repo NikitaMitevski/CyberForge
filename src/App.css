@@ -5,22 +5,10 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #010A11;
-  position: relative;
-}
-
-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background-image: url("./assets/Vector.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.8; /* Adjust this value between 0 and 1 to control visibility */
-  z-index: 0;
 }
 
 #root {

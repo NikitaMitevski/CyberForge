@@ -24,7 +24,6 @@ function App() {
           <Route path="/clicksafe" element={<ClickSafe />} />
           {/* Add more routes as needed */}
         </Routes>
-        <GlobeSection/>
       </div>
     </Router>
   );

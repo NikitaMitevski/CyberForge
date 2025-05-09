@@ -2,29 +2,51 @@ import React, { useRef, useEffect } from "react";
 import Globe from "globe.gl";
 import './GlobeSection.css';
 
+const shieldRing = {
+  lat: 31.8,
+  lng: 35.2,
+  maxRadius: 180,
+  propagationSpeed: 20,
+  repeatPeriod: 2000
+};
+
 const GlobeSection = () => {
   const globeEl = useRef();
 
   useEffect(() => {
     const globe = Globe()(globeEl.current)
-      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-      .backgroundColor('rgba(0,0,0,0)') // transparent background
+      .globeImageUrl('//cdn.jsdelivr.net/npm/three-globe/example/img/earth-night.jpg')
+      .backgroundColor('rgba(0,0,0,0)')
       .showAtmosphere(true)
       .atmosphereColor('#3a228a')
       .atmosphereAltitude(0.25)
-      .width(600) // adjust as needed
-      .height(600);
+      .width(window.innerWidth * 2.2)
+      .height(window.innerHeight * 1.2)
+      .ringsData([shieldRing])
+      .ringColor(() => 'lightblue')
+      .ringMaxRadius('maxRadius')
+      .ringAltitude(0.25)
+      .ringPropagationSpeed('propagationSpeed')
+      .ringRepeatPeriod('repeatPeriod');
 
-    // Optional: auto-rotate
+    const handleResize = () => {
+      globe
+        .width(window.innerWidth * 2.2)
+        .height(window.innerHeight * 1.2);
+    };
+
+    window.addEventListener('resize', handleResize);
+
     globe.controls().autoRotate = true;
     globe.controls().autoRotateSpeed = 0.5;
-
-    // Remove background from renderer
-    globe.renderer().setClearColor(0x000000, 0); // transparent
+    globe.controls().enableZoom = false;
+    globe.renderer().setClearColor(0x000000, 0);
 
     return () => {
-      // Clean up on unmount
-      globeEl.current.innerHTML = '';
+      window.removeEventListener('resize', handleResize);
+      if (globeEl.current) {
+        globeEl.current.innerHTML = '';
+      }
     };
   }, []);
 
