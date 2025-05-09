@@ -144,8 +144,8 @@ const LinkForm = () => {
           </div>
         )}
       </div>
-      <img src={groupImg} alt='Planet' className="link-form-image"/>
-       <img src={frameImg} alt='Frame' className="link-form-frame"/>
+      {/* <img src={groupImg} alt='Planet' className="link-form-image"/> */}
+      <img src={frameImg} alt='Frame' className="link-form-frame"/>
     </div>
   );
 };

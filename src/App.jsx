@@ -8,6 +8,7 @@ import Services from './Services/Services';
 import Contact from './Contact/Contact';
 import AboutUs from './AboutUs/AboutUs';
 import ClickSafe from './ClickSafe/ClickSafe';
+import GlobeSection from './GlobeSection/GlobeSection'; // Adjust the path if needed
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/clicksafe" element={<ClickSafe />} />
           {/* Add more routes as needed */}
         </Routes>
+        <GlobeSection/>
       </div>
     </Router>
   );

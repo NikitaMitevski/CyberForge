@@ -1,0 +1,7 @@
+.globe-section-container {
+  width: 100vw;
+  height: 600px;
+  margin: 0 auto;
+  background: transparent;
+  pointer-events: auto;
+}
