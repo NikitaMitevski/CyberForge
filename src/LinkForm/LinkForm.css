@@ -2,34 +2,42 @@
   width: 100%;
   position: relative;
   display: flex;
-  align-items: start;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   padding: 0;
   margin-top: 20px;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .link-form-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 16px;
   justify-content: center;
-  position: relative; /* Add this */
-  z-index: 1; /* Add this to appear above the background */
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .link-form-input {
     border-radius: 24px;
     border: none;
-    padding: 16px;
-    width: 400px;
-    font-size: 16px;
+    padding: 16px 38px;      /* Match the button */
+    width: 100%;
+    font-size: 22px;
     text-align: center;
     outline: none;
+    box-sizing: border-box;  /* Ensures padding doesn't overflow */
 }
 
 .link-form-button {
-    border-radius: 24px;
+  --btn-default-bg: rgb(41, 41, 41);
     background: #4de1c1;
     color: #222;
     border: none;
@@ -45,9 +53,223 @@
 }
 
 .result-message {
-  margin-top: 16px;
+  position: absolute;
+  top: 100%; /* Just below the button */
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: max-content;
+  min-width: 300px;
+  margin-top: 12px;
   padding: 12px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.1);
   color: white;
+  z-index: 10;
+  text-align: center;
+  pointer-events: auto;
+  animation: fadeIn 0.7s ease;
+  transition: background 0.3s, color 0.3s;
+}
+
+.link-form-image {
+  width: 105vw;
+  max-width: 1300px;
+  max-height: 70vh;
+  margin-top: 4rem;      /* More space below the input */
+  display: block;
+  margin-left: 15px;
+  margin-right: auto;
+  object-fit: contain;
+}
+
+.link-form-frame {
+  position: absolute;
+  top: -110px;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* From Uiverse.io by Galahhad */ 
+.link-form-button {
+  --btn-default-bg: #222c2e;
+  --btn-padding: 15px 32px;
+  --btn-hover-bg: #4de1c1;
+  --btn-transition: .3s;
+  --btn-letter-spacing: .1rem;
+  --btn-animation-duration: 1.2s;
+  --btn-shadow-color: rgba(77, 225, 193, 0.15);
+  --btn-shadow: 0 2px 16px 0 var(--btn-shadow-color);
+  --hover-btn-color: #222c2e;
+  --default-btn-color: #fff;
+  --font-size: 18px;
+  --font-weight: 600;
+  --font-family: Menlo,Roboto Mono,monospace;
+}
+
+/* button settings 👆 */
+
+.link-form-button {
+  box-sizing: border-box;
+  padding: var(--btn-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--default-btn-color);
+  font: var(--font-weight) var(--font-size) var(--font-family);
+  background: var(--btn-default-bg);
+  border: none;
+  cursor: pointer;
+  transition: var(--btn-transition);
+  overflow: hidden;
+  box-shadow: var(--btn-shadow);
+}
+
+.link-form-button span {
+  letter-spacing: var(--btn-letter-spacing);
+  transition: var(--btn-transition);
+  box-sizing: border-box;
+  position: relative;
+  background: inherit;
+}
+
+.link-form-button span::before {
+  box-sizing: border-box;
+  position: absolute;
+  content: "";
+  background: inherit;
+}
+
+.link-form-button:hover, .link-form-button:focus {
+  background: var(--btn-hover-bg);
+}
+
+.link-form-button:hover span, .link-form-button:focus span {
+  color: var(--hover-btn-color);
+}
+
+.link-form-button:hover span::before, .link-form-button:focus span::before {
+  animation: chitchat linear both var(--btn-animation-duration);
+}
+
+@keyframes chitchat {
+  0% {
+    content: "#";
+  }
+
+  5% {
+    content: ".";
+  }
+
+  10% {
+    content: "^{";
+  }
+
+  15% {
+    content: "-!";
+  }
+
+  20% {
+    content: "#$_";
+  }
+
+  25% {
+    content: "№:0";
+  }
+
+  30% {
+    content: "#{+.";
+  }
+
+  35% {
+    content: "@}-?";
+  }
+
+  40% {
+    content: "?{4@%";
+  }
+
+  45% {
+    content: "=.,^!";
+  }
+
+  50% {
+    content: "?2@%";
+  }
+
+  55% {
+    content: "\;1}]";
+  }
+
+  60% {
+    content: "?{%:%";
+    right: 0;
+  }
+
+  65% {
+    content: "|{f[4";
+    right: 0;
+  }
+
+  70% {
+    content: "{4%0%";
+    right: 0;
+  }
+
+  75% {
+    content: "'1_0<";
+    right: 0;
+  }
+
+  80% {
+    content: "{0%";
+    right: 0;
+  }
+
+  85% {
+    content: "]>'";
+    right: 0;
+  }
+
+  90% {
+    content: "4";
+    right: 0;
+  }
+
+  95% {
+    content: "2";
+    right: 0;
+  }
+
+  100% {
+    content: "";
+    right: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, 10px);}
+  to { opacity: 1; transform: translateY(-50%, 0);}
+}
+
+/* Color variants */
+.result-secure {
+  background: rgba(77, 225, 193, 0.2); /* greenish */
+  color: #1b5e20;
+  border: 2px solid #4de1c1;
+}
+
+.result-danger {
+  background: rgba(255, 0, 0, 0.15); /* reddish */
+  color: #b71c1c;
+  border: 2px solid #ff1744;
+}
+
+.result-warning {
+  background: rgba(255, 235, 59, 0.25); /* yellowish */
+  color: #bfa100;
+  border: 2px solid #ffe082;
 }

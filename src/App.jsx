@@ -7,6 +7,7 @@ import About from './About/About';
 import Services from './Services/Services';
 import Contact from './Contact/Contact';
 import AboutUs from './AboutUs/AboutUs';
+import ClickSafe from './ClickSafe/ClickSafe';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/clicksafe" element={<ClickSafe />} />
           {/* Add more routes as needed */}
         </Routes>
       </div>

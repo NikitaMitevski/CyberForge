@@ -1,11 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
 import './LinkForm.css';
+import groupImg from '../assets/Group1000001000.png';
+import frameImg from '../assets/Frame.png';
 
 const LinkForm = () => {
   const [url, setUrl] = useState('');
   const [result, setResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [resultType, setResultType] = useState('');
 
   const isValidUrl = (string) => {
     try {
@@ -31,6 +34,7 @@ const LinkForm = () => {
   const checkUrl = async () => {
     if (!url) {
       setResult("Ве молиме внесете URL");
+      setResultType('warning');
       return;
     }
 
@@ -38,12 +42,14 @@ const LinkForm = () => {
     
     if (!isValidUrl(cleanUrl)) {
       setResult("Ве молиме внесете валиден URL (пр. www.example.com)");
+      setResultType('warning');
       return;
     }
 
     try {
       setIsLoading(true);
       setResult(null);
+      setResultType('');
       
       const urlToCheck = url.startsWith('http') ? url : `https://${url}`;
       
@@ -62,11 +68,14 @@ const LinkForm = () => {
         let errorMsg = "Се случи грешка: ";
         if (data.error === 'Domain does not exist' || data.error === 'Website is not reachable') {
           errorMsg = "Внесениот линк не постои или не е достапен.";
+          setResultType('danger');
         } else if (data.error) {
           errorMsg += data.error;
+          setResultType('danger');
         }
         if (data.suspicious) {
           errorMsg += " (ВНИМАНИЕ: Линкот изгледа сомнително!)";
+          setResultType('warning');
         }
         throw new Error(errorMsg);
       }
@@ -77,15 +86,23 @@ const LinkForm = () => {
 
       if (data.urlhaus) {
         message += " (Овој линк е пријавен како малициозен на URLhaus!)";
+        setResultType('danger');
       }
       if (data.suspicious) {
         message += " (ВНИМАНИЕ: Линкот изгледа сомнително!)";
+        setResultType('warning');
       }
 
       setResult(message);
+      if (data.safe) {
+        setResultType('secure');
+      } else {
+        setResultType('danger');
+      }
     } catch (error) {
       console.error('Error:', error);
       setResult(error.message);
+      setResultType('danger');
     } finally {
       setIsLoading(false);
     }
@@ -106,10 +123,29 @@ const LinkForm = () => {
           onClick={checkUrl}
           disabled={isLoading}
         >
-          {isLoading ? 'Checking...' : 'Check URL'}
+          <span>
+            {isLoading ? 'Checking...' : 'Check URL'}
+          </span>
         </button>
-        {result && <div className="result-message">{result}</div>}
+        {result && (
+          <div
+            className={
+              "result-message " +
+              (resultType === "secure"
+                ? "result-secure"
+                : resultType === "danger"
+                ? "result-danger"
+                : resultType === "warning"
+                ? "result-warning"
+                : "")
+            }
+          >
+            {result}
+          </div>
+        )}
       </div>
+      <img src={groupImg} alt='Planet' className="link-form-image"/>
+       <img src={frameImg} alt='Frame' className="link-form-frame"/>
     </div>
   );
 };

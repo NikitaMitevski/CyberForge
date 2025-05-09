@@ -11,12 +11,17 @@ function Navbar() {
         </div>
         <ul className="navbar-links">
             <div className="nav-group-left">
-                <li><Link to="/">Дома</Link></li>
+                <li><Link to="/">Кликни безбедно</Link></li>
                 <li><Link to="/about">Што е CyberForge?</Link></li>
                 <li><Link to="/services">Зошто безбедност?</Link></li>
             </div>
             <div className="nav-group-right">
-                <li><Link to="/contact" className="test-btn">Тестирај</Link></li>
+                <Link to="/" className="test-btn-link">
+                    <button className="home-button">
+                        <span>Home</span>
+                        <i></i>
+                    </button>
+                </Link>
                 <li><Link to="/aboutus">За нас</Link></li>
             </div>
         </ul>
