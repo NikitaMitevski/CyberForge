@@ -134,6 +134,12 @@ const LinkForm = () => {
     setUrl(e.target.value);
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      checkUrl();
+    }
+  };
+
   return (
     <div className="linkform-bg">
       <div className="link-form-container">
@@ -166,6 +172,7 @@ const LinkForm = () => {
             placeholder="Enter your link here"
             value={result ? result : url}
             onChange={handleInputChange}
+            onKeyDown={handleKeyPress} // Trigger on Enter key press
             disabled={isLoading}
             readOnly={!!result}
           />

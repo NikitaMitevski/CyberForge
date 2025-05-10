@@ -25,12 +25,14 @@ app.use((req, res, next) => {
 function isSuspicious(hostname, pathname = '') {
   // Hostname checks
   if (/xn--/.test(hostname)) return true;
-  if (hostname.length > 30) return true;
+  if (hostname.length > 50) return true; // Increased length limit
   if (/\d{5,}/.test(hostname)) return true;
-  if (!/\.(com|net|org|mk|edu|gov|info|biz|[a-z]{2,})$/i.test(hostname)) return true;
+  
+  // Updated TLD check to include more educational domains
+  if (!/\.(com|net|org|mk|edu|gov|info|biz|ac|sch|school|edu\.mk|[a-z]{2,})$/i.test(hostname)) return true;
 
-  // Path checks
-  const suspiciousPathKeywords = ['secure', 'login', 'case', 'verify', 'update', 'account', 'bank', 'police'];
+  // Path checks - removed some common legitimate keywords
+  const suspiciousPathKeywords = ['secure', 'login', 'verify', 'update', 'account', 'bank', 'police'];
   for (const keyword of suspiciousPathKeywords) {
     if (pathname.toLowerCase().includes(keyword)) return true;
   }
@@ -66,15 +68,26 @@ app.post('/api/check-link', async (req, res) => {
     if (!trustedTLDs.test(hostname)) {
       let dnsWorks = false;
       try {
-        await dns.lookup(hostname);
-        dnsWorks = true;
+        // Try multiple DNS record types
+        const records = await Promise.allSettled([
+          dns.lookup(hostname),
+          dns.resolve(hostname, 'A'),
+          dns.resolve(hostname, 'CNAME'),
+          dns.resolve(hostname, 'MX')
+        ]);
+        
+        // If any of the DNS lookups succeed, consider the domain valid
+        dnsWorks = records.some(record => record.status === 'fulfilled');
+        
+        if (!dnsWorks) {
+          console.log('DNS lookup failed for:', hostname);
+        }
       } catch (e) {
-        try {
-          await dns.resolve(hostname);
-          dnsWorks = true;
-        } catch (e2) {}
+        console.error('DNS error:', e);
       }
-      if (!dnsWorks) {
+      
+      // Skip DNS check for educational and government domains
+      if (!dnsWorks && !/\.(edu|gov|edu\.mk|ac\.mk)$/i.test(hostname)) {
         return res.status(400).json({ error: 'Domain does not exist', suspicious });
       }
     }
