@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start; /* Changed from center to flex-start */
-    padding-top: 150px; /* Added padding-top to position content below navbar */
+    padding-top: 80px; /* Reduced from 150px to move content up */
     overflow-x: hidden; /* Prevent horizontal overflow */
     
     min-height: 100vh;
@@ -11,9 +11,42 @@
 }
 
 .home-container h1 {
-    font-size: 2.2rem;
-    margin-top: 15px;
-    margin-bottom: 0;
+    font-size: 3rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    text-align: center;
+}
+
+.home-container h1 .highlight-word {
+    color: #64d9cb;
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+}
+
+.home-container h1 .highlight-word::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #64d9cb;
+    opacity: 0.3;
+}
+
+.home-content {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.home-content p {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin: 0;
+    font-weight: 500;
 }
 
 /* Add any additional hero section styles below */
@@ -22,5 +55,5 @@
     max-width: 1200px;
     padding: 0 2rem;
     margin-top: 0;
-    margin-bottom: 100px;
+    margin-bottom: 50px; /* Reduced from 100px */
 }

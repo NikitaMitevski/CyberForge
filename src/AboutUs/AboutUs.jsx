@@ -1,26 +1,29 @@
 import React from 'react';
 import './AboutUs.css';
+import { useLanguage } from '../context/LanguageContext';
 
 const AboutUs = () => {
+  const { t } = useLanguage();
+  
   return (
     <div className="about-container">
-      <h1>About Us</h1>
+      <h1>{t.aboutUs}</h1>
       <div className="about-content">
         <section className="mission">
-          <h2>Our Mission</h2>
-          <p>At CyberForge, we are dedicated to providing cutting-edge cybersecurity solutions to protect businesses and individuals in the digital age.</p>
+          <h2>{t.ourMission}</h2>
+          <p>{t.missionDescription}</p>
         </section>
         <section className="team">
-          <h2>Our Team</h2>
-          <p>We are a team of experienced cybersecurity professionals committed to excellence and innovation.</p>
+          <h2>{t.ourTeam}</h2>
+          <p>{t.teamDescription}</p>
         </section>
         <section className="values">
-          <h2>Our Values</h2>
+          <h2>{t.ourValues}</h2>
           <ul>
-            <li>Security First</li>
-            <li>Client Trust</li>
-            <li>Innovation</li>
-            <li>Excellence</li>
+            <li>{t.value1}</li>
+            <li>{t.value2}</li>
+            <li>{t.value3}</li>
+            <li>{t.value4}</li>
           </ul>
         </section>
       </div>

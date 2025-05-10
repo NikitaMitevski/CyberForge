@@ -1,21 +1,24 @@
 import React from 'react';
 import './About.css';
+import { useLanguage } from '../context/LanguageContext';
 
 const About = () => {
+  const { t } = useLanguage();
+  
   return (
     <div className="about-container">
-      <h1>What is CyberForge?</h1>
+      <h1>{t.whatIs}</h1>
       <div className="about-content">
         <section className="description">
-          <p>CyberForge is a leading cybersecurity platform dedicated to protecting businesses and individuals from digital threats.</p>
+          <p>{t.aboutDescription}</p>
         </section>
         <section className="features">
-          <h2>Key Features</h2>
+          <h2>{t.keyFeatures}</h2>
           <ul>
-            <li>Advanced Threat Detection</li>
-            <li>Real-time Monitoring</li>
-            <li>24/7 Security Support</li>
-            <li>Custom Security Solutions</li>
+            <li>{t.feature1}</li>
+            <li>{t.feature2}</li>
+            <li>{t.feature3}</li>
+            <li>{t.feature4}</li>
           </ul>
         </section>
       </div>

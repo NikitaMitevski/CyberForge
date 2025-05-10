@@ -4,25 +4,24 @@ import './LinkForm.css';
 import groupImg from '../assets/Group1000001000.png';
 import frameImg from '../assets/Frame.png';
 import GlobeSection from '../GlobeSection/GlobeSection';
+import { useLanguage } from '../context/LanguageContext';
 
 const LinkForm = () => {
   const [url, setUrl] = useState('');
   const [result, setResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [resultType, setResultType] = useState('');
+  const { t } = useLanguage();
 
   const isValidUrl = (string) => {
     try {
       const url = new URL(string.startsWith('http') ? string : `https://${string}`);
-      // Check for valid domain structure (at least one dot and valid TLD)
       const domainParts = url.hostname.split('.');
       if (domainParts.length < 2) return false;
       
-      // Check for common TLDs and minimum length
       const validTLD = /\.(com|net|org|edu|gov|mil|biz|info|name|museum|coop|aero|[a-z]{2,})$/i;
       if (!validTLD.test(url.hostname)) return false;
       
-      // Check minimum length and valid characters
       if (url.hostname.length < 4) return false;
       if (!/^[a-zA-Z0-9-_.]+\.[a-zA-Z]{2,}$/.test(url.hostname)) return false;
 
@@ -34,7 +33,7 @@ const LinkForm = () => {
 
   const checkUrl = async () => {
     if (!url) {
-      setResult("Ве молиме внесете URL");
+      setResult(t.enterUrl);
       setResultType('warning');
       return;
     }
@@ -42,7 +41,7 @@ const LinkForm = () => {
     const cleanUrl = url.trim();
     
     if (!isValidUrl(cleanUrl)) {
-      setResult("Ве молиме внесете валиден URL (пр. www.example.com)");
+      setResult(t.notExist);
       setResultType('warning');
       return;
     }
@@ -56,7 +55,7 @@ const LinkForm = () => {
       
       const res = await fetch('http://localhost:5173/api/check-link', {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({ url: urlToCheck.trim() })
@@ -65,16 +64,15 @@ const LinkForm = () => {
       const data = await res.json();
 
       if (!res.ok) {
-        // Show a specific message if the backend says the domain does not exist or is unreachable
-        let errorMsg = "Се случи грешка: ";
+        let errorMsg = t.error;
         let type = 'danger';
         if (data.error === 'Domain does not exist' || data.error === 'Website is not reachable') {
-          errorMsg = "Внесениот линк не постои или не е достапен.";
+          errorMsg = t.notExist;
         } else if (data.error) {
           errorMsg += data.error;
         }
         if (data.suspicious) {
-          errorMsg += " (ВНИМАНИЕ: Линкот изгледа сомнително!)";
+          errorMsg += " (" + t.suspicious + ")";
           type = 'warning';
         }
         setResult(errorMsg);
@@ -82,35 +80,35 @@ const LinkForm = () => {
         throw new Error(errorMsg);
       }
 
-      // Build natural, context-aware combined message and type
       let message = '';
       let type = 'secure';
+
       if (data.safe) {
         if (data.suspicious && data.urlhaus) {
-          message = "Линкот е сигурен, но е пријавен како малициозен на URLhaus и покажува знаци на сомнителност.";
+          message = t.warning;
           type = 'danger';
         } else if (data.suspicious) {
-          message = "Линкот е сигурен, но покажува знаци на сомнителност.";
+          message = t.warning;
           type = 'warning';
         } else if (data.urlhaus) {
-          message = "Линкот е сигурен, но е пријавен како малициозен на URLhaus!";
+          message = t.warning;
           type = 'danger';
         } else {
-          message = "Вашиот линк е безбеден!";
+          message = t.safe;
           type = 'secure';
         }
       } else {
         if (data.suspicious && data.urlhaus) {
-          message = "Линкот е опасен, е пријавен како малициозен на URLhaus и покажува знаци на сомнителност.";
+          message = t.dangerous;
           type = 'danger';
         } else if (data.suspicious) {
-          message = "Линкот е опасен, и покажува знаци на сомнителност.";
+          message = t.dangerous;
           type = 'danger';
         } else if (data.urlhaus) {
-          message = "Линкот е опасен и е пријавен како малициозен на URLhaus!";
+          message = t.dangerous;
           type = 'danger';
         } else {
-          message = "Вашиот линк е опасен, бидете внимателни!";
+          message = t.dangerous;
           type = 'danger';
         }
       }
@@ -118,14 +116,11 @@ const LinkForm = () => {
       setResultType(type);
     } catch (error) {
       console.error('Error:', error);
-      // setResult(error.message); // Already set above
-      // setResultType('danger'); // Already set above
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
-  // Reset input when user starts typing after result
   const handleInputChange = (e) => {
     if (result) {
       setResult(null);
@@ -166,13 +161,13 @@ const LinkForm = () => {
               </svg>
             </button>
           )}
-          <input 
-            type="text" 
+          <input
+            type="text"
             className={`link-form-input${result ? ` result-in-input result-${resultType}` : ''}`}
-            placeholder="Enter your link here"
+            placeholder={t.enterUrl}
             value={result ? result : url}
             onChange={handleInputChange}
-            onKeyDown={handleKeyPress} // Trigger on Enter key press
+            onKeyDown={handleKeyPress}
             disabled={isLoading}
             readOnly={!!result}
           />
@@ -183,11 +178,10 @@ const LinkForm = () => {
           disabled={isLoading || !!result}
         >
           <span>
-            {isLoading ? 'Checking...' : 'Check URL'}
+            {isLoading ? t.checking : t.checkUrl}
           </span>
         </button>
       </div>
-      {/* <img src={groupImg} alt='Planet' className="link-form-image"/> */}
       <img src={frameImg} alt='Frame' className="link-form-frame"/>
       <GlobeSection />
     </div>

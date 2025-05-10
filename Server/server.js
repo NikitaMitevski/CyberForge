@@ -68,26 +68,15 @@ app.post('/api/check-link', async (req, res) => {
     if (!trustedTLDs.test(hostname)) {
       let dnsWorks = false;
       try {
-        // Try multiple DNS record types
-        const records = await Promise.allSettled([
-          dns.lookup(hostname),
-          dns.resolve(hostname, 'A'),
-          dns.resolve(hostname, 'CNAME'),
-          dns.resolve(hostname, 'MX')
-        ]);
-        
-        // If any of the DNS lookups succeed, consider the domain valid
-        dnsWorks = records.some(record => record.status === 'fulfilled');
-        
-        if (!dnsWorks) {
-          console.log('DNS lookup failed for:', hostname);
-        }
+        await dns.lookup(hostname);
+        dnsWorks = true;
       } catch (e) {
-        console.error('DNS error:', e);
+        try {
+          await dns.resolve(hostname);
+          dnsWorks = true;
+        } catch (e2) {}
       }
-      
-      // Skip DNS check for educational and government domains
-      if (!dnsWorks && !/\.(edu|gov|edu\.mk|ac\.mk)$/i.test(hostname)) {
+      if (!dnsWorks) {
         return res.status(400).json({ error: 'Domain does not exist', suspicious });
       }
     }

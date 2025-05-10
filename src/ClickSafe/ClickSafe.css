@@ -1,0 +1,68 @@
+.clicksafe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.clicksafe-container h1 {
+  margin-bottom: 2rem;
+  color: var(--content-text);
+}
+
+.input-container {
+  width: 100%;
+  max-width: 600px;
+}
+
+.input-container form {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.url-input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  border: 2px solid #64d9cb;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #333333;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.url-input:focus {
+  border-color: #4cc9b0;
+  box-shadow: 0 0 0 3px rgba(100, 217, 203, 0.2);
+}
+
+.url-input::placeholder {
+  color: #999999;
+}
+
+.check-button {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #64d9cb;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.check-button:hover {
+  background-color: #4cc9b0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.check-button:active {
+  transform: translateY(0);
+}

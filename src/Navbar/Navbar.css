@@ -3,8 +3,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 2rem;
-    background: transparent;
-    min-height: 56px;
+    background: var(--card-bg); /* Using theme's card background */
+    height: 90px; /* Increased height */
     position: fixed;
     top: 0;
     left: 0;
@@ -12,6 +12,10 @@
     z-index: 1000;
     width: 100%;
     box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .navbar-logo {
@@ -21,8 +25,9 @@
 }
 
 .cyber-logo {
-    height: 100px;
+    height: 80px; /* Increased logo size */
     width: auto;
+    object-fit: contain;
 }
 
 .navbar-links {
@@ -60,15 +65,15 @@
 
 .navbar-links a {
     text-decoration: none;
-    color: #fff;
+    color: #ffffff; /* White text */
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     transition: color 0.3s;
     padding: 0.25rem 0.5rem;
 }
 
 .navbar-links a:hover {
-    color: #64d9cb;
+    color: #64d9cb; /* Logo green color */
 }
 
 .navbar-links .test-btn {
@@ -91,75 +96,126 @@
 }
 
 /* From Uiverse.io by mrhyddenn */ 
-home-button {
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 10px 30px;
-  transition: 0.5s;
-  position: relative;
-  font-size: 17px;
-  background: #333;
-  border: none;
-  color: #fff;
+.home-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #64d9cb;
+    color: #0a1929;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(100, 217, 203, 0.2);
 }
 
-home-button:hover {
-  letter-spacing: 0.25em;
-  background: #ff1867;
-  color: #ff1867;
-  box-shadow: 0 0 45px #ff1867;
+.home-button:hover {
+    background: #4cc9b0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(100, 217, 203, 0.3);
 }
 
-home-button::before {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  background: #222222;
+.home-button:active {
+    transform: translateY(0);
 }
 
-home-button span {
-  position: relative;
-  z-index: 1;
+.home-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
 }
 
-home-button i {
-  position: absolute;
-  inset: 0;
-  display: block;
+.home-button:hover .home-icon {
+    transform: scale(1.1);
 }
 
-home-button i::before {
-  content: '';
-  position: absolute;
-  border: 2px solid #ff1867;
-  width: 7px;
-  height: 4px;
-  top: -3.5px;
-  left: 80%;
-  background: #222222;
-  transform: translateX(-50%);
-  transition: 0.5s;
+.home-button span {
+    font-family: 'IBM Plex Sans', sans-serif;
 }
 
-home-button:hover i::before {
-  width: 20px;
-  left: 20%;
+.language-selector {
+    position: relative;
+    margin-right: 1rem;
 }
 
-home-button i::after {
-  content: '';
-  position: absolute;
-  border: 2px solid #ff1867;
-  width: 7px;
-  height: 4px;
-  bottom: -3.5px;
-  left: 20%;
-  background: #222222;
-  transform: translateX(-50%);
-  transition: 0.5s;
+.language-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-home-button:hover i::after {
-  width: 20px;
-  left: 80%;
+.language-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.language-icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.language-button:hover .language-icon {
+    transform: translateY(2px);
+}
+
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px;
+    min-width: 120px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+.language-option {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    text-align: left;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.language-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.language-option.active {
+    background: rgba(100, 217, 203, 0.2);
+    color: #64d9cb;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
