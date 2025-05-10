@@ -1,36 +1,38 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Services.css';
+import { useLanguage } from '../context/LanguageContext';
 
 const Services = () => {
+  const { t } = useLanguage();
+  
   return (
     <div className="services-container">
-      <h1>Why Security?</h1>
+      <h1>{t.whySecurity}</h1>
       <div className="services-content">
-        <section className="security-importance">
-          <h2>The Importance of Cybersecurity</h2>
-          <p>In today's digital world, security is not just an option - it's a necessity. Our services help protect your digital assets and maintain your peace of mind.</p>
+        <p className="security-intro">{t.securityIntro}</p>
+        
+        <section className="risks-section">
+          <h2>{t.risksTitle}</h2>
+          <ul>
+            <li>{t.risk1}</li>
+            <li>{t.risk2}</li>
+            <li>{t.risk3}</li>
+          </ul>
         </section>
-        <section className="our-services">
-          <h2>Our Services</h2>
-          <div className="service-grid">
-            <div className="service-item">
-              <h3>Network Security</h3>
-              <p>Protect your network infrastructure from unauthorized access and threats.</p>
-            </div>
-            <div className="service-item">
-              <h3>Data Protection</h3>
-              <p>Safeguard your sensitive data with advanced encryption and security measures.</p>
-            </div>
-            <div className="service-item">
-              <h3>Security Consulting</h3>
-              <p>Expert guidance on implementing and maintaining security protocols.</p>
-            </div>
-            <div className="service-item">
-              <h3>Incident Response</h3>
-              <p>24/7 support for handling security incidents and breaches.</p>
-            </div>
-          </div>
+
+        <section className="protection-section">
+          <h2>{t.protectionTitle}</h2>
+          <ul>
+            <li>{t.protection1}</li>
+            <li>{t.protection2}</li>
+            <li>{t.protection3}</li>
+          </ul>
         </section>
+
+        <Link to="/" className="security-cta">
+          {t.securityCallToAction}
+        </Link>
       </div>
     </div>
   );

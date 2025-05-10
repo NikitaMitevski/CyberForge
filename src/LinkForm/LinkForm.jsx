@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import './LinkForm.css';
 import groupImg from '../assets/Group1000001000.png';
 import frameImg from '../assets/Frame.png';
@@ -13,7 +12,8 @@ const LinkForm = () => {
   const [resultType, setResultType] = useState('');
   const { t } = useLanguage();
 
-  const isValidUrl = (string) => {
+  // Memoize the URL validation function
+  const isValidUrl = useCallback((string) => {
     try {
       const url = new URL(string.startsWith('http') ? string : `https://${string}`);
       const domainParts = url.hostname.split('.');
@@ -29,9 +29,10 @@ const LinkForm = () => {
     } catch (err) {
       return false;
     }
-  };
+  }, []);
 
-  const checkUrl = async () => {
+  // Memoize the check URL function
+  const checkUrl = useCallback(async () => {
     if (!url) {
       setResult(t.enterUrl);
       setResultType('warning');
@@ -53,13 +54,19 @@ const LinkForm = () => {
       
       const urlToCheck = url.startsWith('http') ? url : `https://${url}`;
       
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
       const res = await fetch('http://localhost:5173/api/check-link', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ url: urlToCheck.trim() })
+        body: JSON.stringify({ url: urlToCheck.trim() }),
+        signal: controller.signal
       });
+
+      clearTimeout(timeoutId);
 
       const data = await res.json();
 
@@ -115,25 +122,43 @@ const LinkForm = () => {
       setResult(message);
       setResultType(type);
     } catch (error) {
-      console.error('Error:', error);
+      if (error.name === 'AbortError') {
+        setResult(t.error + ' Request timeout');
+        setResultType('danger');
+      } else {
+        console.error('Error:', error);
+        setResult(t.error + ' ' + error.message);
+        setResultType('danger');
+      }
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [url, t, isValidUrl]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = useCallback((e) => {
     if (result) {
       setResult(null);
       setResultType('');
     }
     setUrl(e.target.value);
-  };
+  }, [result]);
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = useCallback((event) => {
     if (event.key === 'Enter') {
       checkUrl();
     }
-  };
+  }, [checkUrl]);
+
+  const handleReset = useCallback(() => {
+    setResult(null);
+    setResultType('');
+    setUrl('');
+  }, []);
+
+  // Memoize the input class name
+  const inputClassName = useMemo(() => {
+    return `link-form-input${result ? ` result-in-input result-${resultType}` : ''}`;
+  }, [result, resultType]);
 
   return (
     <div className="linkform-bg">
@@ -143,11 +168,7 @@ const LinkForm = () => {
             <button
               className="reset-btn"
               type="button"
-              onClick={() => {
-                setResult(null);
-                setResultType('');
-                setUrl('');
-              }}
+              onClick={handleReset}
               aria-label="Reset input"
             >
               <span className="visually-hidden">Clear</span>
@@ -163,13 +184,12 @@ const LinkForm = () => {
           )}
           <input
             type="text"
-            className={`link-form-input${result ? ` result-in-input result-${resultType}` : ''}`}
+            className={inputClassName}
             placeholder={t.enterUrl}
             value={result ? result : url}
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
-            disabled={isLoading}
-            readOnly={!!result}
+            disabled={isLoading || !!result}
           />
         </div>
         <button 
@@ -182,10 +202,10 @@ const LinkForm = () => {
           </span>
         </button>
       </div>
-      <img src={frameImg} alt='Frame' className="link-form-frame"/>
+      <img src={frameImg} alt='Frame' className="link-form-frame" loading="lazy"/>
       <GlobeSection />
     </div>
   );
 };
 
-export default LinkForm;
+export default React.memo(LinkForm);

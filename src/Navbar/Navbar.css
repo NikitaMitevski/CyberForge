@@ -3,8 +3,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 2rem;
-    background: var(--card-bg); /* Using theme's card background */
-    height: 90px; /* Increased height */
+    background: var(--card-bg);
+    height: 90px;
     position: fixed;
     top: 0;
     left: 0;
@@ -25,7 +25,7 @@
 }
 
 .cyber-logo {
-    height: 80px; /* Increased logo size */
+    height: 80px;
     width: auto;
     object-fit: contain;
 }
@@ -40,7 +40,6 @@
     width: 100%;
 }
 
-/* New styles for nav grouping */
 .navbar-links {
     display: flex;
     justify-content: space-between;
@@ -55,6 +54,7 @@
 .nav-group-right {
     display: flex;
     gap: 2.5rem;
+    align-items: center;
 }
 
 .navbar-links li {
@@ -65,7 +65,7 @@
 
 .navbar-links a {
     text-decoration: none;
-    color: #ffffff; /* White text */
+    color: #ffffff;
     font-weight: 500;
     font-size: 1.1rem;
     transition: color 0.3s;
@@ -73,67 +73,23 @@
 }
 
 .navbar-links a:hover {
-    color: #64d9cb; /* Logo green color */
+    color: #64d9cb;
 }
 
-.navbar-links .test-btn {
-    background: #64d9cb;
-    color: #fff !important;
-    border: none;
-    border-radius: 999px;
-    padding: 0.5rem 2rem;
-    font-weight: 600;
-    font-size: 1rem;
-    margin-right: 1.5rem;
-    transition: background 0.2s;
+.theme-toggle {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 6px;
     cursor: pointer;
-    box-shadow: 0 2px 8px 0 rgba(100,217,203,0.08);
-    display: inline-block;
-}
-
-.navbar-links .test-btn:hover {
-    background: #4cc9b0;
-}
-
-/* From Uiverse.io by mrhyddenn */ 
-.home-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: #64d9cb;
-    color: #0a1929;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
+    font-size: 1.2rem;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(100, 217, 203, 0.2);
 }
 
-.home-button:hover {
-    background: #4cc9b0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(100, 217, 203, 0.3);
-}
-
-.home-button:active {
-    transform: translateY(0);
-}
-
-.home-icon {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.3s ease;
-}
-
-.home-button:hover .home-icon {
-    transform: scale(1.1);
-}
-
-.home-button span {
-    font-family: 'IBM Plex Sans', sans-serif;
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .language-selector {
@@ -205,8 +161,48 @@
 }
 
 .language-option.active {
-    background: rgba(100, 217, 203, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     color: #64d9cb;
+}
+
+.home-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #64d9cb;
+    color: #0a1929;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(100, 217, 203, 0.2);
+}
+
+.home-button:hover {
+    background: #4cc9b0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(100, 217, 203, 0.3);
+}
+
+.home-button:active {
+    transform: translateY(0);
+}
+
+.home-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.home-button:hover .home-icon {
+    transform: scale(1.1);
+}
+
+.home-button span {
+    font-family: 'IBM Plex Sans', sans-serif;
 }
 
 @keyframes fadeIn {
@@ -217,5 +213,30 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-links {
+        gap: 1rem;
+        padding: 0 5%;
+    }
+
+    .nav-group-left {
+        gap: 1rem;
+    }
+
+    .nav-group-right {
+        gap: 1rem;
+    }
+
+    .language-button,
+    .theme-toggle {
+        padding: 4px 8px;
+        font-size: 0.8rem;
     }
 }

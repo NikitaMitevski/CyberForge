@@ -4,7 +4,7 @@ import './Navbar.css'; // Assuming you will have a CSS file for styling
 import logo from './Adobe_Express_-_file.png'; // Adjust the path to your logo image
 import { useLanguage } from '../context/LanguageContext';
 
-function Navbar() {
+function Navbar({ isDarkTheme, onThemeToggle }) {
     const [isLanguageOpen, setIsLanguageOpen] = useState(false);
     const { language, setLanguage, t } = useLanguage();
 
@@ -56,6 +56,14 @@ function Navbar() {
                             </div>
                         )}
                     </div>
+                    <button 
+                        type="button"
+                        className="theme-toggle"
+                        onClick={onThemeToggle}
+                        aria-label="Toggle theme"
+                    >
+                        {isDarkTheme ? '☀️' : '🌙'}
+                    </button>
                     <Link to="/" className="test-btn-link">
                         <button className="home-button">
                             <svg className="home-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

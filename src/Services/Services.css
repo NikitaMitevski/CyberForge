@@ -1,0 +1,123 @@
+.services-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: var(--content-text);
+}
+
+.services-content {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Light theme specific styles */
+[data-theme="light"] .services-content {
+  background: #64d9cb;
+  color: #000000;
+}
+
+[data-theme="light"] .risks-section h2,
+[data-theme="light"] .protection-section h2 {
+  color: #000000;
+}
+
+[data-theme="light"] .risks-section li::before,
+[data-theme="light"] .protection-section li::before {
+  color: #000000;
+}
+
+[data-theme="light"] .security-cta {
+  background: #1a1a2e;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(26, 26, 46, 0.2);
+}
+
+[data-theme="light"] .security-cta:hover {
+  box-shadow: 0 4px 12px rgba(26, 26, 46, 0.3);
+  color: #ffffff;
+}
+
+.security-intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: var(--content-text);
+}
+
+.risks-section,
+.protection-section {
+  margin: 2rem 0;
+}
+
+.risks-section h2,
+.protection-section h2 {
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.risks-section ul,
+.protection-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.risks-section li,
+.protection-section li {
+  margin: 0.8rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.risks-section li::before,
+.protection-section li::before {
+  content: "•";
+  color: var(--accent-color);
+  position: absolute;
+  left: 0;
+  font-size: 1.2rem;
+}
+
+.security-cta {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background: var(--accent-color);
+  color: var(--card-bg);
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(100, 217, 203, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.security-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 217, 203, 0.3);
+  color: var(--card-bg);
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .services-container {
+    padding: 1rem;
+  }
+  
+  .services-content {
+    padding: 1.5rem;
+  }
+  
+  .security-intro {
+    font-size: 1rem;
+  }
+  
+  .risks-section h2,
+  .protection-section h2 {
+    font-size: 1.3rem;
+  }
+}

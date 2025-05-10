@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './About.css';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -9,10 +10,9 @@ const About = () => {
     <div className="about-container">
       <h1>{t.whatIs}</h1>
       <div className="about-content">
-        <section className="description">
-          <p>{t.aboutDescription}</p>
-        </section>
-        <section className="features">
+        <p className="about-intro">{t.aboutDescription}</p>
+        
+        <section className="how-it-works">
           <h2>{t.keyFeatures}</h2>
           <ul>
             <li>{t.feature1}</li>
@@ -21,6 +21,19 @@ const About = () => {
             <li>{t.feature4}</li>
           </ul>
         </section>
+
+        <section className="benefits-section">
+          <h2>{t.aboutBenefits}</h2>
+          <ul>
+            <li>{t.benefit1}</li>
+            <li>{t.benefit2}</li>
+            <li>{t.benefit3}</li>
+          </ul>
+        </section>
+
+        <Link to="/" className="about-cta">
+          {t.aboutCallToAction}
+        </Link>
       </div>
     </div>
   );

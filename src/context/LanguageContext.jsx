@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useMemo } from 'react';
 
 // Translation objects
 const translations = {
@@ -26,12 +26,17 @@ const translations = {
         suspicious: 'ВНИМАНИЕ: Линкот изгледа сомнително!',
         
         // About Section
-        aboutDescription: 'CyberForge е водечка платформа за кибербезбедност посветена на заштита на бизнисите и поединците од дигитални закани.',
-        keyFeatures: 'Клучни карактеристики',
-        feature1: 'Напредно откривање на закани',
-        feature2: 'Мониторинг во реално време',
-        feature3: 'Поддршка за безбедност 24/7',
-        feature4: 'Прилагодени безбедносни решенија',
+        aboutDescription: '🌐 Како функционира CyberForge?\n\nCyberForge е твојата прва линија на одбрана од опасни линкови на интернет. Со нашата алатка, секој корисник може лесно да внесе било кој линк во полето на почетната страница и за само неколку секунди да добие информација дали тој линк е безбеден или потенцијално опасен.',
+        keyFeatures: 'Како работи:',
+        feature1: 'Го внесуваш линкот во полето на почетната страница',
+        feature2: 'Системот автоматски го анализира URL-то и го споредува со најновите бази на податоци за фишинг, малициозни и измамнички страници',
+        feature3: 'Користи напредни алгоритми и машинско учење за препознавање на нови закани',
+        feature4: 'Брза и јасна информација за безбедноста на секој линк',
+        aboutBenefits: 'Што добиваш:',
+        benefit1: 'Брза и јасна информација за безбедноста на секој линк',
+        benefit2: 'Заштита од најчестите интернет закани',
+        benefit3: 'Мирен ум при секое сурфање',
+        aboutCallToAction: '👉 Провери го секој линк пред да кликнеш со CyberForge!',
         
         // About Us Section
         ourMission: 'Нашата мисија',
@@ -49,7 +54,19 @@ const translations = {
         name: 'Име:',
         email: 'Е-пошта:',
         message: 'Порака:',
-        sendMessage: 'Испрати порака'
+        sendMessage: 'Испрати порака',
+
+        // Why Security Section
+        securityIntro: 'Во дигиталниот свет, безбедноста не е само избор, туку неопходност. Секојдневно сме изложени на различни сајбер закани – од фишинг и малициозен софтвер до кражба на лични податоци и финансиски измами. Само со свесност и проактивен пристап можеме да ги намалиме ризиците и да уживаме во интернетот без страв од злоупотреба.',
+        risksTitle: 'Ризици:',
+        risk1: 'Фишинг напади',
+        risk2: 'Кражба на идентитет',
+        risk3: 'Малициозен софтвер',
+        protectionTitle: 'Како да се заштитиш:',
+        protection1: 'Користи силни лозинки',
+        protection2: 'Вклучи двојна автентикација',
+        protection3: 'Проверувај сомнителни линкови',
+        securityCallToAction: '👉 Провери го секој линк пред да кликнеш!'
     },
     EN: {
         // Navigation
@@ -75,12 +92,17 @@ const translations = {
         suspicious: 'WARNING: The link appears suspicious!',
         
         // About Section
-        aboutDescription: 'CyberForge is a leading cybersecurity platform dedicated to protecting businesses and individuals from digital threats.',
-        keyFeatures: 'Key Features',
-        feature1: 'Advanced Threat Detection',
-        feature2: 'Real-time Monitoring',
-        feature3: '24/7 Security Support',
-        feature4: 'Custom Security Solutions',
+        aboutDescription: '🌐 How does CyberForge work?\n\nCyberForge is your first line of defense against dangerous links on the internet. With our tool, every user can easily enter any link in the field on the homepage and within seconds get information about whether that link is safe or potentially dangerous.',
+        keyFeatures: 'How it works:',
+        feature1: 'Enter the link in the field on the homepage',
+        feature2: 'The system automatically analyzes the URL and compares it with the latest databases of phishing, malicious and fraudulent pages',
+        feature3: 'Uses advanced algorithms and machine learning to recognize new threats',
+        feature4: 'Quick and clear information about the safety of each link',
+        aboutBenefits: 'What you get:',
+        benefit1: 'Quick and clear information about the safety of each link',
+        benefit2: 'Protection from the most common internet threats',
+        benefit3: 'Peace of mind while surfing',
+        aboutCallToAction: '👉 Check every link before you click with CyberForge!',
         
         // About Us Section
         ourMission: 'Our Mission',
@@ -98,7 +120,19 @@ const translations = {
         name: 'Name:',
         email: 'Email:',
         message: 'Message:',
-        sendMessage: 'Send Message'
+        sendMessage: 'Send Message',
+
+        // Why Security Section
+        securityIntro: 'In the digital world, security is not just a choice, but a necessity. We are daily exposed to various cyber threats – from phishing and malware to identity theft and financial fraud. Only through awareness and a proactive approach can we reduce risks and enjoy the internet without fear of abuse.',
+        risksTitle: 'Risks:',
+        risk1: 'Phishing attacks',
+        risk2: 'Identity theft',
+        risk3: 'Malware',
+        protectionTitle: 'How to protect yourself:',
+        protection1: 'Use strong passwords',
+        protection2: 'Enable two-factor authentication',
+        protection3: 'Check suspicious links',
+        securityCallToAction: '👉 Check every link before you click!'
     },
     SQ: {
         // Navigation
@@ -124,12 +158,17 @@ const translations = {
         suspicious: 'KUJDES: Lidhja duket e dyshimtë!',
         
         // About Section
-        aboutDescription: 'CyberForge është një platformë kryesore e sigurisë kibernetike e dedikuar për mbrojtjen e bizneseve dhe individëve nga kërcënimet dixhitale.',
-        keyFeatures: 'Veçoritë Kryesore',
-        feature1: 'Zbulimi i Avancuar i Kërcënimeve',
-        feature2: 'Monitorimi në Kohë Reale',
-        feature3: 'Mbështetje Sigurie 24/7',
-        feature4: 'Zgjidhje të Përshtatshme Sigurie',
+        aboutDescription: '🌐 Si funksionon CyberForge?\n\nCyberForge është vija juaj e parë e mbrojtjes kundër lidhjeve të rrezikshme në internet. Me mjetin tonë, çdo përdorues mund të futë lehtësisht çdo lidhje në fushën në faqen kryesore dhe brenda sekondave të marrë informacion nëse ajo lidhje është e sigurt apo potencialisht e rrezikshme.',
+        keyFeatures: 'Si funksionon:',
+        feature1: 'Fut lidhjen në fushën në faqen kryesore',
+        feature2: 'Sistemi automatikisht analizon URL-në dhe e krahason me bazat e të dhënave më të fundit të faqeve të phishing, malicioze dhe mashtruese',
+        feature3: 'Përdor algoritme të avancuara dhe mësimin e makinerisë për të njohur kërcënimet e reja',
+        feature4: 'Informacion i shpejtë dhe i qartë për sigurinë e çdo lidhjeje',
+        aboutBenefits: 'Çfarë merrni:',
+        benefit1: 'Informacion i shpejtë dhe i qartë për sigurinë e çdo lidhjeje',
+        benefit2: 'Mbrojtje nga kërcënimet më të zakonshme të internetit',
+        benefit3: 'Qetësi mendore gjatë surfimit',
+        aboutCallToAction: '👉 Kontrolloni çdo lidhje para se të klikoni me CyberForge!',
         
         // About Us Section
         ourMission: 'Misioni Ynë',
@@ -147,7 +186,19 @@ const translations = {
         name: 'Emri:',
         email: 'Email:',
         message: 'Mesazhi:',
-        sendMessage: 'Dërgo Mesazhin'
+        sendMessage: 'Dërgo Mesazhin',
+
+        // Why Security Section
+        securityIntro: 'Në botën dixhitale, siguria nuk është thjesht një zgjedhje, por një domosdoshmëri. Ne jemi të ekspozuar çdo ditë ndaj kërcënimeve të ndryshme kibernetike – nga phishing dhe malware deri te vjedhja e identitetit dhe mashtrimet financiare. Vetëm përmes ndërgjegjësimit dhe një qasjeje proaktive mund të zvogëlojmë rreziqet dhe të shijojmë internetin pa frikë nga abuzimi.',
+        risksTitle: 'Rreziqet:',
+        risk1: 'Sulmet phishing',
+        risk2: 'Vjedhja e identitetit',
+        risk3: 'Malware',
+        protectionTitle: 'Si të mbroheni:',
+        protection1: 'Përdorni fjalëkalime të forta',
+        protection2: 'Aktivizoni autentifikimin me dy faktorë',
+        protection3: 'Kontrolloni lidhjet e dyshimta',
+        securityCallToAction: '👉 Kontrolloni çdo lidhje para se të klikoni!'
     }
 };
 
@@ -155,19 +206,30 @@ const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
     const [language, setLanguage] = useState(() => {
-        const savedLanguage = localStorage.getItem('language');
-        return savedLanguage || 'MK';
+        // Use a try-catch block to handle potential localStorage errors
+        try {
+            const savedLanguage = localStorage.getItem('language');
+            return savedLanguage || 'MK';
+        } catch (error) {
+            console.error('Error accessing localStorage:', error);
+            return 'MK';
+        }
     });
 
     useEffect(() => {
-        localStorage.setItem('language', language);
+        try {
+            localStorage.setItem('language', language);
+        } catch (error) {
+            console.error('Error saving to localStorage:', error);
+        }
     }, [language]);
 
-    const value = {
+    // Memoize the context value to prevent unnecessary re-renders
+    const value = useMemo(() => ({
         language,
         setLanguage,
         t: translations[language]
-    };
+    }), [language]);
 
     return (
         <LanguageContext.Provider value={value}>
